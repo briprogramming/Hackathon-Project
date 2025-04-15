@@ -1,0 +1,58 @@
+h1 {
+    background-color: #ffcb97; 
+    text-align: center;
+    color: black;
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    padding: 20px 30px;         
+    border-radius: 30px;        
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    border: 2px solid #ccc;     
+}
+
+h2 {
+    text-align: center;
+    color: black;
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+h3 {
+    text-align: left;
+    color: black;
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+button {
+    background-color: #ffcb97;
+    color: black;
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    padding: 10px 20px;        
+    border-radius: 30px;        
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    border: none;               
+    cursor: pointer;  
+}
+main{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+ul{
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    padding: 0;
+    width: 100%; /* Adjust width as needed */
+}
+li {
+    margin: 0 10px; /* Adjust margin as needed */
+
+
+}
