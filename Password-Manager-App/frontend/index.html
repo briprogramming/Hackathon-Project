@@ -5,24 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Manager</title>
 </head>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
 <body>
     <div class="container">
         <header>
+            <div class="bubble-cloud"></div>
             <h1>PassVault</h1>
         </header>
-        <main>
-            <h2>Store and Retrieve Passwords</h2>
-            <ul id="password-list"></ul>
-            <!-- <button id="add-password">Add Password</button> -->
+            <h2>Search Website</h2>
+            <main>
+            <input type="text" id="website-url" placeholder="Paste here">
+            <button onclick="searchWebsite()">Search</button>
+            <div id="search-result"></div>
         </main>
-        <form id="password-form">
-            <input type="text" id="password" placeholder="Enter your password" required>
-            <button type="submit">Submit</button>
-        </form>
+        <section class="Functionality">
+            <h3>Store and Retrieve Passwords</h3>
+            <ul> 
+                <li><button onclick="showForm()">Create New Password</button></li>
+                <li><button onclick="showList()">Show All Passwords</button></li>
+                <li><button onclick="clearPasswords()">Clear All Passwords</button></li>
+            </ul>
+        </section>
+        <section>
+            <ul>
+                <li>Website</li>
+                <li>Username</li>
+                <li>Password</li>
+            </ul>
+        </section>
         <div id="result"></div>
     </div>
 
+    
     <script src="script.js"></script>  
 </body>
 </html>
