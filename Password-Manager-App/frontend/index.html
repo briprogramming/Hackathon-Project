@@ -15,28 +15,21 @@
             <div class="bubble-cloud"></div>
             <h1>PassVault</h1>
         </header>
-            <h2>Search Website</h2>
             <main>
-            <input type="text" id="website-url" placeholder="Paste here">
-            <button onclick="fetchUsernames()">Search</button>
-            <div id="search-result"></div>
+            <input type="text" id="website-url" placeholder="Enter website URL">
+            <button onclick="fetchbyWebsite()">Search</button>
+            <div id="search-result" ></div>
+
         </main>
         <section class="Functionality">
             <h3>Store and Retrieve Passwords</h3>
             <ul> 
-                <li><button onclick="showForm()">Create New Password</button></li>
-                <li><button onclick="showList()">Show All Passwords</button></li>
-                <li><button onclick="clearPasswords()">Clear All Passwords</button></li>
+                <li><button onclick="fetchAllPasswords()">Show All</button></li>
+                <li><button onclick="showForm()">Create New</button></li>
+            
             </ul>
         </section>
-        <section>
-            <ul>
-                <li>Website</li>
-                <li>Username</li>
-                <li>Password</li>
-            </ul>
-        </section>
-        <div id="result"></div>
+        <div id="search-result"></div>
     </div>
 
     
