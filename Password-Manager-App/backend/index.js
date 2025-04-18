@@ -115,10 +115,21 @@ app.get('/passwords/all', async (req,res) => {
         const entries = await PassVault.findAll({ attributes: ['website', 'username', 'password', 'notes'] });
         res.json(entries);
     } catch (error) {
-        console.error('Error fetching all entries:', error);
+        console.error('Error fetching all passwords:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
     });
+
+app.post("/passwords/new", async(req, res) => {
+    const { website, username, password, notes } = req.body;
+    try {
+        const newEntry = await PassVault.create({ website, username, password, notes });
+        res.status(201).json(newEntry);
+    } catch (error) {
+        console.error('Error creating new entry:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 
 const PORT = 3000;;
@@ -131,7 +142,6 @@ app.listen(PORT, async () => {
     }
 });
 
-// Export the database connection for use in other modules
 module.exports = {
     db,
     PassVault,

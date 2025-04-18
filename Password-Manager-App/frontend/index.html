@@ -18,16 +18,31 @@
             <main>
             <input type="text" id="website-url" placeholder="Enter website URL">
             <button onclick="fetchbyWebsite()">Search</button>
-            <div id="search-result" ></div>
-
         </main>
+
         <section class="Functionality">
             <h3>Store and Retrieve Passwords</h3>
             <ul> 
                 <li><button onclick="fetchAllPasswords()">Show All</button></li>
                 <li><button onclick="showForm()">Create New</button></li>
-            
             </ul>
+            <div id="result" style="display: none;"></div>
+        </section>
+        <div id="search-result" style="display: none;" ></div>
+
+        <section id="create-new-section" style="display: none;">
+            <h3>Create New Entry</h3>
+            <form id="create-new-form">
+                <label for="new-website">Website URL:</label>
+                <input type="text" id="new-website" placeholder="Enter website URL" required>
+                <label for="new-username">Username:</label>
+                <input type="text" id="new-username" placeholder="Enter username" required>
+                <label for="new-password">Password:</label>
+                <input type="password" id="new-password" placeholder="Enter password" required>
+                <label for="new-notes">Notes:</label>
+                <textarea id="new-notes" placeholder="Enter notes"></textarea>
+                <button type="button" onclick="submitNewEntry()">Submit</button>
+            </form>
         </section>
         <div id="search-result"></div>
     </div>

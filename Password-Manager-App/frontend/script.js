@@ -51,19 +51,19 @@ async function fetchUsernames() {
 
         async function fetchbyWebsite() {
             const websiteInput = document.getElementById('website-url').value.trim();
-            const resultDiv = document.getElementById(' search-result');
+            const resultDiv = document.getElementById('search-result');
             try {
-                const response = await fetch(`${API_URL}/password/search?website=${encodeURIComponent(websiteInput)}`);
-                const password = await response.json();
+                const res = await fetch(`${API_URL}/password/search?website=${encodeURIComponent(websiteInput)}`);
+                const data = await res.json();
         
                 const resultDiv = document.getElementById('search-result');
-                if (response.ok) {
+                if (res.ok) {
                     resultDiv.innerHTML = `
                     <h3>Store and Retrieve Passwords</h3>
-                        <p><strong>Website:</strong> ${password.website}</p>
-                        <p><strong>Username:</strong> ${password.username}</p>
-                        <p><strong>Password:</strong> ${password.password}</p>
-                        <p><strong>Notes:</strong> ${password.notes}</p> `;
+                        <p><strong>Website:</strong> ${data.website}</p>
+                        <p><strong>Username:</strong> ${data.username}</p>
+                        <p><strong>Password:</strong> ${data.password}</p>
+                        <p><strong>Notes:</strong> ${data.notes}</p> `;
                 } else {
                     entryDiv.innerHTML = ` <p>${data.error}</p>`;
                 }
@@ -109,12 +109,66 @@ async function fetchUsernames() {
         }
 
         function toggleVisibility(button) {
-            const contentSpan = button.previousElementSibling; // Get the <span> element before the button
+            const contentSpan = button.previousElementSibling;
             if (contentSpan.classList.contains('hidden-content')) {
                 contentSpan.classList.remove('hidden-content');
-                button.textContent = '🙈'; // Change the button icon to "hide"
+                button.textContent = '🙈'; 
             } else {
                 contentSpan.classList.add('hidden-content');
-                button.textContent = '👁️'; // Change the button icon to "show"
+                button.textContent = '👁️'; 
             }
         }
+
+    function showForm() {
+        const createNewSection = document.getElementById('create-new-section');
+        createNewSection.style.display = 'block'; 
+    }
+
+    async function submitNewEntry(){
+        const website = document.getElementById('new-website').value.trim();
+        const username = document.getElementById('new-username').value.trim();
+        const password = document.getElementById('new-password').value.trim();
+        const notes = document.getElementById('new-notes').value.trim();
+
+
+        const hasLetters = /[a-zA-Z]/.test(password);
+        const hasNumbers = /\d/.test(password);
+        const passwordInput = document.getElementById('new-password');
+
+        if(!hasLetters || !hasNumbers){
+            passwordInput.style.borderColor = 'red';
+            alert('Password must contain both letters and numbers.');
+            return;
+        } else {
+            passwordInput.style.borderColor = ''; 
+        }
+        try{
+            const res = await fetch(`${API_URL}/passwords/new`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ website, username, password, notes }),
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                alert('Yay! Another one bits the dust!');
+                document.getElementById('create-new-section').style.display = 'none'; 
+                document.getElementById('new-website').value = '';
+                document.getElementById('new-username').value = '';
+                document.getElementById('new-password').value = '';
+                document.getElementById('new-notes').value = '';
+
+
+                fetchAllPasswords();
+            } else {
+                const errorData = await res.json();
+                alert(`Error: ${errorData.error}`);
+            }
+        }
+        catch (error) {
+            console.error('Error creating new entry:', error);
+            alert('An error occurred while creating the new entry.');
+        }
+    }
