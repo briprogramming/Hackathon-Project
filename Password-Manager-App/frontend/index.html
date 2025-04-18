@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Manager</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
+<body>
+    <div class="container">
+        <header>
+            <div class="bubble-cloud"></div>
+            <h1>PassVault</h1>
+        </header>
+            <main>
+            <input type="text" id="website-url" placeholder="Enter website URL">
+            <button onclick="fetchbyWebsite()">Search</button>
+        </main>
+
+        <section class="Functionality">
+            <h3>Store and Retrieve Passwords</h3>
+            <ul> 
+                <li><button onclick="fetchAllPasswords()">Show All</button></li>
+                <li><button onclick="showForm()">Create New</button></li>
+            </ul>
+            <div id="result" style="display: none;"></div>
+        </section>
+        <div id="search-result" style="display: none;" ></div>
+
+        <section id="create-new-section" style="display: none;">
+            <h3>Create New Entry</h3>
+            <form id="create-new-form">
+                <label for="new-website">Website URL:</label>
+                <input type="text" id="new-website" placeholder="Enter website URL" required>
+                <label for="new-username">Username:</label>
+                <input type="text" id="new-username" placeholder="Enter username" required>
+                <label for="new-password">Password:</label>
+                <input type="password" id="new-password" placeholder="Enter password" required>
+                <label for="new-notes">Notes:</label>
+                <textarea id="new-notes" placeholder="Enter notes"></textarea>
+                <button type="button" onclick="submitNewEntry()">Submit</button>
+            </form>
+        </section>
+        <div id="search-result"></div>
+    </div>
+
+    
+    <script src="script.js"></script>  
+</body>
+</html>
