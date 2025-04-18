@@ -15,28 +15,36 @@
             <div class="bubble-cloud"></div>
             <h1>PassVault</h1>
         </header>
-            <h2>Search Website</h2>
             <main>
-            <input type="text" id="website-url" placeholder="Paste here">
-            <button onclick="searchWebsite()">Search</button>
-            <div id="search-result"></div>
+            <input type="text" id="website-url" placeholder="Enter website URL">
+            <button onclick="fetchbyWebsite()">Search</button>
         </main>
+
         <section class="Functionality">
             <h3>Store and Retrieve Passwords</h3>
             <ul> 
-                <li><button onclick="showForm()">Create New Password</button></li>
-                <li><button onclick="showList()">Show All Passwords</button></li>
-                <li><button onclick="clearPasswords()">Clear All Passwords</button></li>
+                <li><button onclick="fetchAllPasswords()">Show All</button></li>
+                <li><button onclick="showForm()">Create New</button></li>
             </ul>
+            <div id="result" style="display: none;"></div>
         </section>
-        <section>
-            <ul>
-                <li>Website</li>
-                <li>Username</li>
-                <li>Password</li>
-            </ul>
+        <div id="search-result" style="display: none;" ></div>
+
+        <section id="create-new-section" style="display: none;">
+            <h3>Create New Entry</h3>
+            <form id="create-new-form">
+                <label for="new-website">Website URL:</label>
+                <input type="text" id="new-website" placeholder="Enter website URL" required>
+                <label for="new-username">Username:</label>
+                <input type="text" id="new-username" placeholder="Enter username" required>
+                <label for="new-password">Password:</label>
+                <input type="password" id="new-password" placeholder="Enter password" required>
+                <label for="new-notes">Notes:</label>
+                <textarea id="new-notes" placeholder="Enter notes"></textarea>
+                <button type="button" onclick="submitNewEntry()">Submit</button>
+            </form>
         </section>
-        <div id="result"></div>
+        <div id="search-result"></div>
     </div>
 
     
