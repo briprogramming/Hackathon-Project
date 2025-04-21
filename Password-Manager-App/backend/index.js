@@ -123,6 +123,12 @@ app.get('/passwords/all', async (req,res) => {
 app.post("/passwords/new", async(req, res) => {
     const { website, username, password, notes } = req.body;
     try {
+        const existingEntry = await PassVault.findOne({ where: { website } });
+        if (existingEntry) {
+            return res.status(400).json({ error: 'Entry already exists' });
+        }
+
+
         const newEntry = await PassVault.create({ website, username, password, notes });
         res.status(201).json(newEntry);
     } catch (error) {
