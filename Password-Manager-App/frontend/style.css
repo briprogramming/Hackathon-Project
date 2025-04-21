@@ -209,3 +209,15 @@ li {
 #create-new-form button:hover {
     background-color: #45a049; 
 }
+
+#search-result p {
+    margin: 15px ; 
+    texxt-align: center;
+    font-size: 1rem;
+    color: black;
+    font-family: "Poetsen One", sans-serif;
+}
+#search-result strong{
+    font-weight : bold;
+    color: #ffcb97;
+}

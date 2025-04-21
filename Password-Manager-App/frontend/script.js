@@ -49,31 +49,49 @@ async function fetchUsernames() {
 }
 
 
-        async function fetchbyWebsite() {
-            const websiteInput = document.getElementById('website-url').value.trim();
-            const resultDiv = document.getElementById('search-result');
-            try {
-                const res = await fetch(`${API_URL}/password/search?website=${encodeURIComponent(websiteInput)}`);
-                const data = await res.json();
-        
-                const resultDiv = document.getElementById('search-result');
-                if (res.ok) {
-                    resultDiv.innerHTML = `
-                    <h3>Store and Retrieve Passwords</h3>
-                        <p><strong>Website:</strong> ${data.website}</p>
-                        <p><strong>Username:</strong> ${data.username}</p>
-                        <p><strong>Password:</strong> ${data.password}</p>
-                        <p><strong>Notes:</strong> ${data.notes}</p> `;
-                } else {
-                    entryDiv.innerHTML = ` <p>${data.error}</p>`;
-                }
-                resultDiv.style.display = 'flex'; 
-            } catch (error) {
-                console.error('Error fetching entry:', error);
-                resultDiv.innerHTML = `<p>Error fetching entry: Try another one.</p>`;
-                resultDiv.style.display = 'flex'; // 
-            }
+async function fetchbyWebsite() {
+    const websiteInput = document.getElementById('website-url').value.trim();
+    const resultDiv = document.getElementById('result'); // "Show All" results
+    const createNewSection = document.getElementById('create-new-section'); // "Create New" section
+    const searchResultDiv = document.getElementById('search-result'); // Search results
+
+    // If the input is empty, clear the search results and reset the view
+    if (!websiteInput) {
+        searchResultDiv.style.display = 'none';
+        searchResultDiv.innerHTML = '';
+        resultDiv.style.display = 'none';
+        resultDiv.innerHTML = '';
+        createNewSection.style.display = 'none';
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API_URL}/password/search?website=${encodeURIComponent(websiteInput)}`);
+        const data = await res.json();
+
+        // Hide other sections
+        resultDiv.style.display = 'none';
+        resultDiv.innerHTML = '';
+        createNewSection.style.display = 'none';
+
+        if (res.ok) {
+            searchResultDiv.innerHTML = `
+                <p><strong>Website:</strong> ${data.website}</p>
+                <p><strong>Username:</strong> ${data.username}</p>
+                <p><strong>Password:</strong> ${data.password}</p>
+                <p><strong>Notes:</strong> ${data.notes || 'N/A'}</p>
+            `;
+        } else {
+            searchResultDiv.innerHTML = `<p>${data.error}</p>`;
         }
+
+        searchResultDiv.style.display = 'flex'; 
+    } catch (error) {
+        console.error('Error fetching entry:', error);
+        searchResultDiv.innerHTML = `<p>Error fetching entry. Please try again later.</p>`;
+        searchResultDiv.style.display = 'flex'; 
+    }
+}
 
         async function fetchAllPasswords() {
             const resultDiv = document.getElementById('result');
@@ -121,7 +139,16 @@ async function fetchUsernames() {
 
     function showForm() {
         const createNewSection = document.getElementById('create-new-section');
+        const resultDiv = document.getElementById('result');
+        const searchResultDiv = document.getElementById('search-result');
         createNewSection.style.display = 'block'; 
+
+
+        resultDiv.style.display = 'none';
+        resultDiv.innerHTML = '';
+        searchResultDiv.style.display = 'none';
+        searchResultDiv.innerHTML = '';
+
     }
 
     async function submitNewEntry(){
@@ -142,7 +169,18 @@ async function fetchUsernames() {
         } else {
             passwordInput.style.borderColor = ''; 
         }
+
+
         try{
+            const checkRes = await fetch(`${API_URL}/password/search?website=${encodeURIComponent(website)}`);
+            if (checkRes.ok) {
+                const checkData = await checkRes.json();
+                if (checkData) {
+                    alert('Entry already exists! Please try again.');
+                    return;
+                }
+            }
+
             const res = await fetch(`${API_URL}/passwords/new`, {
                 method: 'POST',
                 headers: {
