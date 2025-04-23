@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://hackathon-project-2885.onrender.com';
 
 
 async function fetchPasswords() {
