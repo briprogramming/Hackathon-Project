@@ -28,8 +28,10 @@ https://hackathon-project-2885.onrender.com/
 ## Getting Started
 Follow these steps to set up and run the Password Manager Application on your local machine.
 
+## Clone the Repository
+```bash
 git clone https://github.com/briprogramming/Hackathon-Project.git
-cd Hackathon project
+cd Hackathon-Project
 
 ## Install dependencies 
 cd Password-Manager-App/backend
@@ -40,3 +42,43 @@ npm install
 ## Run the Application
 cd Password-Manager-App/backend
 node index.js
+
+## API Endpoints
+1. Get All Passwords
+URL: /passwords/all
+Method: GET
+Description: Fetches all stored passwords.
+2. Search for a Password by Website
+URL: /password/search
+Method: GET
+Query Parameters:
+website (string): The website URL to search for.
+Description: Fetches the password entry for a specific website.
+3. Add a New Password Entry
+URL: /passwords/new
+Method: POST
+Request Body:
+{
+  "website": "example.com",
+  "username": "user123",
+  "password": "securepassword",
+  "notes": "Example notes"
+}
+
+Description: Adds a new password entry.
+
+
+## Known Issues
+The "Show All" button may not work if the backend API is unreachable.
+Passwords are currently stored in plain text (encryption is planned for future updates).
+The app does not support multiple users.
+Contributing
+Contributions are welcome! To contribute:
+
+* Fork the repository.
+* Create a new branch for your feature or bug fix:
+git checkout -b feature-name
+* Commit your changes:
+git commit -m "Description of changes"
+* Push to your branch:
+* Open a pull request.
